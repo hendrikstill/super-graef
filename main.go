@@ -68,7 +68,7 @@ func (config *Config) pollSqs() <-chan *sqs.Message {
 
 	sqsClient := sqs.New(sess)
 
-	log.Info("Start listening on SQS queue %s", *config.sqsQueueUrl)
+	log.Infof("Start listening on SQS queue %s", *config.sqsQueueUrl)
 
 	go func() {
 		for {
@@ -88,7 +88,7 @@ func (config *Config) pollSqs() <-chan *sqs.Message {
 					ReceiptHandle: message.ReceiptHandle,
 				})
 				if err != nil {
-					log.Errorln("failed to delete sqs message %v", err)
+					log.Errorf("failed to delete sqs message %v", err)
 				}
 				chnMessages <- message
 			}
